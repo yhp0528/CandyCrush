@@ -16,17 +16,22 @@ public abstract class BaseCandyCrush implements CandyCrush{
         }
 
         StringBuilder sb = new StringBuilder(input);
-        // 第一个字符连续出现的开始和结束索引
-        int[] indices = findFirstConsecutiveChars(sb);
+        while (true){
+            // 第一个字符连续出现的开始和结束索引
+            int[] indices = findFirstConsecutiveChars(sb);
 
-        if (indices[0] != -1) {
-            // 删除连续字符
-            sb.delete(indices[0], indices[1]);
-            // 如果开始索引大于0，说明前面还有字符，直接在后面插入同一个字符【第2个要求】
-            differentStageProcess(sb,indices[0]);
-            // 递归
-            return candyCrush(sb.toString());
+            if (indices[0] != -1) {
+                // 删除连续字符
+                sb.delete(indices[0], indices[1]);
+                // 如果开始索引大于0，说明前面还有字符，直接在后面插入同一个字符【第2个要求】
+                differentStageProcess(sb,indices[0]);
+                // 递归
+               // return candyCrush(sb.toString());
+            }else {
+                break;
+            }
         }
+
 
         return sb.toString();
     }
