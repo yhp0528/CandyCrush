@@ -1,5 +1,6 @@
 package cn.yhp.candy;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -31,10 +32,45 @@ public class CandyCrushTest {
     @Test
     public void test_candyCrush() {
 //        String input="aabcccbbad";
-        String input="bbaaccchkdddd";
+//        String input="bbaaccchkdddd";
         CandyCrush stage1=new CandyCrushStageOne();
         CandyCrush stage2=new CandyCrushStageTwo();
-        System.out.println("stage1(只删除不填充前面的字符串)===>result:"+stage1.candyCrush(input));
-        System.out.println("stage2(删除且填充前面的字符串)===>result:"+stage2.candyCrush(input));
+//        System.out.println("stage1(只删除不填充前面的字符串)===>result:"+stage1.candyCrush(input));
+//        System.out.println("stage2(删除且填充前面的字符串)===>result:"+stage2.candyCrush(input));
+
+        String input="aabcccbbad";
+        String expected="d";
+        Assert.assertEquals(expected,stage1.candyCrush(input));
+        Assert.assertEquals(expected,stage2.candyCrush(input));
+
+        input=repeat("aaaccccbbb",50000);
+        expected="";
+        Assert.assertEquals(expected,stage1.candyCrush(input));
+        Assert.assertEquals(expected,stage2.candyCrush(input));
+
+        input=repeat("abcdefghijklmnopqrstuvwxyz",10000);
+        expected=repeat("abcdefghijklmnopqrstuvwxyz",10000);
+        Assert.assertEquals(expected,stage1.candyCrush(input));
+        Assert.assertEquals(expected,stage2.candyCrush(input));
+
+        input=repeat("a",100000)+"b";
+        expected="b";
+        Assert.assertEquals(expected,stage1.candyCrush(input));
+        Assert.assertEquals(expected,stage2.candyCrush(input));
+
+        input=repeat("aaadccce",10000);
+        expected=repeat("ddee",9999)+"dde";
+        Assert.assertEquals(repeat("de",10000),stage1.candyCrush(input));
+        Assert.assertEquals(expected,stage2.candyCrush(input));
+
+
+    }
+
+    private String repeat(String str, int times) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < times; i++) {
+            sb.append(str);
+        }
+        return sb.toString();
     }
 }
